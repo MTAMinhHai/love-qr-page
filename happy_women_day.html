@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>💖 Chúc mừng 20/10 Nhi 💕</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -20,49 +19,9 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* --- QR SECTION --- */
-    #qrSection {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-
-    h1 {
-      color: #e91e63;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    #qrcode {
-      background: white;
-      padding: 15px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    button {
-      margin-top: 25px;
-      background: #ff7eb9;
-      border: none;
-      padding: 12px 20px;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #ff4081;
-    }
-
     /* --- LOVE SECTION --- */
     #loveSection {
-      display: none;
+      display: block;
       position: relative;
       height: 100vh;
       width: 100%;
@@ -165,20 +124,9 @@
       80% { transform: translateY(-40px); opacity: 1; }
       100% { transform: translateY(-80px); opacity: 0; }
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
-  <!-- <div id="qrSection">
-    <h1>💌 Quét mã để nhận lời chúc từ Hải 💕</h1>
-    <div id="qrcode"></div>
-    <button id="btnShow">Tôi đã quét xong 💖</button>
-  </div> -->
-
   <div id="loveSection">
     <canvas id="fireworks"></canvas>
     <div id="heartContainer"></div>
@@ -191,45 +139,27 @@
   </div>
 
   <script>
-    // const publicLink = "http://127.0.0.1:5500/happy_women_day.html";
-    // new QRCode(document.getElementById("qrcode"), {
-    //   text: publicLink,
-    //   width: 200,
-    //   height: 200,
-    //   colorDark: "#e91e63",
-    //   colorLight: "#ffffff",
-    // });
-
-    // document.getElementById("btnShow").addEventListener("click", () => {
-    //   document.getElementById("qrSection").style.display = "none";
-    //   document.getElementById("loveSection").style.display = "block";
-    //   document.getElementById("bgMusic").play();
-    //   startFireworks();
-    //   startHearts();
-    //   startFlowers();
-    //   showWishes();
-    // });
-
     function showLoveSection() {
-        document.getElementById("bgMusic").play();
-        startFireworks();
-        startHearts();
-        startFlowers();
-        showWishes();
+      document.getElementById("bgMusic").play();
+      startFireworks();
+      startHearts();
+      startFlowers();
+      showWishes();
     }
 
-    document.getElementById("btnShow").addEventListener("click", showLoveSection);
+    // Tự động chạy khi mở trang
+    window.addEventListener("load", showLoveSection);
 
-        // 🟢 Khi trang được mở bằng link QR — tự chạy luôn
-        window.addEventListener("load", () => {
-        // Nếu bạn muốn bỏ phần QR, chỉ hiện hiệu ứng
-        showLoveSection();
-        });
+    // Nếu trình duyệt chặn autoplay, nhấn vào trang 1 lần sẽ bật nhạc
+    document.body.addEventListener("click", () => {
+      document.getElementById("bgMusic").play();
+    }, { once: true });
 
     function startFireworks() {
       const canvas = document.getElementById("fireworks");
       const ctx = canvas.getContext("2d");
       let particles = [];
+
       function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -325,4 +255,3 @@
   </script>
 </body>
 </html>
-
