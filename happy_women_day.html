@@ -133,12 +133,17 @@
     <div id="flowerContainer"></div>
     <div class="title">🎆 Happy 20/10 Nhi 🎇</div>
     <div id="wishContainer"></div>
-    <audio id="bgMusic" loop>
-      <source src="https://cdn.pixabay.com/download/audio/2023/03/14/audio_4b62b94ff1.mp3" type="audio/mpeg">
+    <audio id="bgMusic" autoplay loop muted>
+      <source src="https://www.nhaccuatui.com/song/eJY25BNKU3p0?source=app" type="audio/mpeg">
     </audio>
   </div>
 
   <script>
+     document.body.addEventListener('click', () => {
+      const music = document.getElementById('bgMusic');
+      music.muted = false; // mở tiếng
+      music.play();
+    });
     function showLoveSection() {
       document.getElementById("bgMusic").play();
       startFireworks();
