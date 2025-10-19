@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>💖 Chúc mừng 20/10 Nhi 💕</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(-45deg, #ffb6c1, #ffe4ec, #fff0f5, #ffccdd);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* --- QR SECTION --- */
+    #qrSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #qrcode {
+      background: white;
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      margin-top: 25px;
+      background: #ff7eb9;
+      border: none;
+      padding: 12px 20px;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff4081;
+    }
+
+    /* --- LOVE SECTION --- */
+    #loveSection {
+      display: none;
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #0d001a, #000);
+      color: white;
+    }
+
+    #fireworks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    #heartContainer, #flowerContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff6fa0;
+      font-size: 20px;
+      animation: flyHeart 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes flyHeart {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+
+    .flower {
+      position: absolute;
+      top: -50px;
+      animation: fall 8s linear infinite;
+      z-index: 2;
+      font-size: 1.5rem;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    .title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: #ff99c8;
+      font-weight: bold;
+      z-index: 10;
+      text-shadow: 0 0 20px #ff4081;
+      animation: glow 2s ease-in-out infinite alternate, popIn 2s ease forwards;
+    }
+
+    @keyframes popIn {
+      from { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #ff4081; }
+      100% { text-shadow: 0 0 30px #fff; }
+    }
+
+    #wishContainer {
+      position: absolute;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      width: 90%;
+      z-index: 5;
+    }
+
+    .wish {
+      font-size: 1.8rem;
+      color: #ffb6c1;
+      opacity: 0;
+      animation: floatUp 4s ease-in-out forwards;
+      text-shadow: 0 0 8px #ff80aa;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(40px); opacity: 0; }
+      20% { opacity: 1; }
+      80% { transform: translateY(-40px); opacity: 1; }
+      100% { transform: translateY(-80px); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="qrSection">
+    <h1>💌 Quét mã để nhận lời chúc từ Hải 💕</h1>
+    <div id="qrcode"></div>
+    <button id="btnShow">Tôi đã quét xong 💖</button>
+  </div>
+
+  <div id="loveSection">
+    <canvas id="fireworks"></canvas>
+    <div id="heartContainer"></div>
+    <div id="flowerContainer"></div>
+    <div class="title">🎆 Happy 20/10 Nhi 🎇</div>
+    <div id="wishContainer"></div>
+    <audio id="bgMusic" loop>
+      <source src="https://cdn.pixabay.com/download/audio/2023/03/14/audio_4b62b94ff1.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const publicLink = "https://love-qr-page.vercel.app/";
+    new QRCode(document.getElementById("qrcode"), {
+      text: publicLink,
+      width: 200,
+      height: 200,
+      colorDark: "#e91e63",
+      colorLight: "#ffffff",
+    });
+
+    // document.getElementById("btnShow").addEventListener("click", () => {
+    //   document.getElementById("qrSection").style.display = "none";
+    //   document.getElementById("loveSection").style.display = "block";
+    //   document.getElementById("bgMusic").play();
+    //   startFireworks();
+    //   startHearts();
+    //   startFlowers();
+    //   showWishes();
+    // });
+
+    function showLoveSection() {
+        document.getElementById("qrSection").style.display = "none";
+        document.getElementById("loveSection").style.display = "block";
+        document.getElementById("bgMusic").play();
+        startFireworks();
+        startHearts();
+        startFlowers();
+        showWishes();
+    }
+
+    document.getElementById("btnShow").addEventListener("click", showLoveSection);
+
+        // 🟢 Khi trang được mở bằng link QR — tự chạy luôn
+        window.addEventListener("load", () => {
+        // Nếu bạn muốn bỏ phần QR, chỉ hiện hiệu ứng
+        showLoveSection();
+        });
+
+    function startFireworks() {
+      const canvas = document.getElementById("fireworks");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      function createFirework() {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height / 2;
+        for (let i = 0; i < 80; i++) {
+          particles.push({
+            x, y,
+            angle: Math.random() * 2 * Math.PI,
+            speed: Math.random() * 4 + 1,
+            life: 100,
+            color: `hsl(${Math.random() * 360}, 100%, 70%)`
+          });
+        }
+      }
+
+      function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+          p.x += Math.cos(p.angle) * p.speed;
+          p.y += Math.sin(p.angle) * p.speed;
+          p.life--;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          if (p.life <= 0) particles.splice(i, 1);
+        });
+        if (Math.random() < 0.05) createFirework();
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    function startHearts() {
+      const container = document.getElementById("heartContainer");
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 300);
+    }
+
+    function startFlowers() {
+      const flowers = ["🌸", "🌷", "🌼", "💐", "🌺"];
+      const container = document.getElementById("flowerContainer");
+      setInterval(() => {
+        const flower = document.createElement("div");
+        flower.className = "flower";
+        flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+        flower.style.left = Math.random() * 100 + "%";
+        flower.style.animationDuration = (Math.random() * 5 + 5) + "s";
+        container.appendChild(flower);
+        setTimeout(() => flower.remove(), 8000);
+      }, 500);
+    }
+
+    const wishes = [
+      "Chúc Nhi 20/10 thật rực rỡ và đầy niềm vui 🌸",
+      "Gửi Nhi một ngày tràn ngập yêu thương 💕",
+      "Chúc cô gái tên Nhi luôn hạnh phúc và bình an 🌷",
+      "20/10 cười thật tươi nhé Nhi 💫",
+      "Nhi ơi, chúc cậu gặp nhiều điều may mắn 🍀",
+      "Chúc Nhi luôn là phiên bản tuyệt vời nhất ✨",
+      "Gửi Nhi bó hoa nhỏ cùng muôn lời chúc đẹp 💐",
+      "Nhi ơi, chúc cậu mỗi ngày đều vui như 20/10 nhé 🌸",
+      "20/10 đến rồi, chúc Nhi được yêu thương gấp đôi 💕",
+      "Chúc Nhi ngày càng xinh đẹp, thành công và hạnh phúc 🌹"
+    ];
+
+    function showWishes() {
+      const container = document.getElementById("wishContainer");
+      let i = 0;
+      setInterval(() => {
+        const wish = document.createElement("div");
+        wish.className = "wish";
+        wish.textContent = wishes[i];
+        container.appendChild(wish);
+        setTimeout(() => wish.remove(), 4000);
+        i = (i + 1) % wishes.length;
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
+
